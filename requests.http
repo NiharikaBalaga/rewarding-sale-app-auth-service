@@ -1,0 +1,7 @@
+### Generate Otp
+POST http://localhost:3000/api/auth/otp/generate
+content-type: application/json
+
+{
+  "phoneNumber": "437-556-4035"
+}
