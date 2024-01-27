@@ -1,4 +1,4 @@
-import OtpModel from '../DB/Model';
+import OtpModel from '../DB/Otp';
 import { randomBytes } from 'crypto';
 import { Aws } from './Aws';
 import type { Response } from 'express';

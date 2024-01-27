@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import type {Document, Model} from 'mongoose';
+import type { Document, Model } from 'mongoose';
 
 interface IOtp extends Document {
   phoneNumber: string,
