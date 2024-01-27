@@ -1,5 +1,5 @@
 import express from 'express';
-import { requestOtp, validateErrors } from './RequestValidations';
+import {validPhoneNumber, validateErrors, verifyOtp} from './RequestValidations';
 import { AuthServiceController } from '../controller';
 
 
@@ -11,7 +11,10 @@ function getRouter() {
   });
 
   // @ts-ignore
-  router.post('/api/auth/otp/generate', [requestOtp(), validateErrors, AuthServiceController.generateOtp]);
+  router.post('/api/auth/otp/generate', [validPhoneNumber(), validateErrors, AuthServiceController.generateOtp]);
+
+  // @ts-ignore
+  router.post('/api/auth/otp/verify', [verifyOtp(), validateErrors, AuthServiceController.verifyOtp]);
 
 
   return router;

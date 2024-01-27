@@ -2,7 +2,7 @@ import { body, matchedData, validationResult } from 'express-validator';
 import type { NextFunction, Request, Response } from 'express';
 import { httpCodes } from '../constants/http-status-code';
 
-const requestOtp = () => {
+const validPhoneNumber = () => {
   return  [
     body('phoneNumber')
       .trim()
@@ -10,6 +10,19 @@ const requestOtp = () => {
       .escape()
       .matches(/^\d{3}-\d{3}-\d{4}$/)
       .withMessage('Phone number must be in the format xxx-xxx-xxxx')];
+};
+const verifyOtp = () => {
+  const validPhoneNumberResult = validPhoneNumber();
+
+  return [
+    ...validPhoneNumberResult,
+    body('otp')
+      .trim()
+      .notEmpty()
+      .escape()
+      .isNumeric()
+      .isLength({ min: 6, max: 6 })
+      .withMessage('Must be a Valid OTP')];
 };
 
 
@@ -27,4 +40,4 @@ const validateErrors = (req: Request, res: Response, next: NextFunction) => {
   });
 };
 
-export { requestOtp, validateErrors };
+export { validPhoneNumber, validateErrors, verifyOtp };

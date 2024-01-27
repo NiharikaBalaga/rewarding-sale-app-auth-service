@@ -1,16 +1,20 @@
-import OtpModel from '../DB/Otp';
+
 import { randomBytes } from 'crypto';
 import { Aws } from './Aws';
 import type { Response } from 'express';
 import { httpCodes } from '../constants/http-status-code';
+import OtpModel from '../DB/Models/Otp';
+import { UserService } from './User';
 
 class OtpService {
   private static async _OTPExists(phoneNumber: string) {
-    const optExists = await OtpModel.findOne({
+    const otpObject = await OtpModel.findOne({
       phoneNumber
     });
-    if (optExists) return true;
-    return false;
+    return {
+      optExists: otpObject ?  true : false,
+      otpObject,
+    };
   }
 
   private static _generateOTP(length: number = 6): string {
@@ -27,10 +31,14 @@ class OtpService {
 
     return otp;
   }
+
+  private static _deleteOTP(phoneNumber: string) {
+    return OtpModel.deleteOne({ phoneNumber });
+  }
   public static async sendOtp(phoneNumber: string, res: Response) {
     try {
       // Check if OTP exists
-      const optExists = await this._OTPExists(phoneNumber);
+      const { optExists } = await this._OTPExists(phoneNumber);
 
       // OTP is not expired
       if (optExists)
@@ -45,10 +53,56 @@ class OtpService {
       await Promise.all([otpDocument.save(), Aws.sendOtpToPhone(phoneNumber, sixDigitOTP)]);
       return res.status(httpCodes.ok).send({ success: true, message: 'OTP sent successfully' });
     } catch (sendOtpError){
+
+      // if anything goes  wrong delete the OTP if it was saved in database
+      await this._deleteOTP(phoneNumber);
       console.log('sendOtpError', sendOtpError);
-      return res.send(httpCodes.serverError);
+      return res.status(httpCodes.serverError).send('Otp Not sent');
     }
   }
+
+  public static async verifyOTP(phoneNumber: string, userOtp: string, res: Response) {
+    try {
+      // Check if OTP exists
+      const { optExists, otpObject } = await this._OTPExists(phoneNumber);
+
+      if (!optExists)
+        return res.status(httpCodes.unprocessable_entity).send('Otp not generated'); // TODO format error message
+
+      // Check Otp matching
+      if (otpObject?.otp !== userOtp)
+        return res.status(httpCodes.badRequest).send('Verification Failed/ Wrong OTP');
+
+      // OTP Matches
+
+      // Delete OTP
+      await this._deleteOTP(phoneNumber);
+
+      // check user existence in User collection
+      // find user is signedUp or not and send the isSignedUp in response
+      const user = await UserService.getUserByPhone(phoneNumber);
+      let isSignedUp = false;
+      if (user && user.signedUp)
+        isSignedUp = true;
+      else if (!user)
+        await UserService.createUserByPhone(phoneNumber);
+
+
+      // TODO Generate and send Auth tokens also refresh token
+
+      return res.status(httpCodes.ok).send({
+        message: 'OTP Verified successfully',
+        isSignedUp: isSignedUp,
+        accessToken: '',
+        refreshToken: ''
+      });
+
+    } catch (verifyOTPError) {
+      console.error('verifyOTPError', verifyOTPError);
+      return res.status(httpCodes.serverError).send('Verification Failed/ Wrong OTP, please try later');
+    }
+  }
+
 }
 
 export {

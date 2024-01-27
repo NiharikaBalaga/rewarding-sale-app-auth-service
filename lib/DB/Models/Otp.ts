@@ -3,7 +3,7 @@ import type { Document, Model } from 'mongoose';
 
 interface IOtp extends Document {
   phoneNumber: string,
-  Otp: string,
+  otp: string,
   createdAt: Date
 }
 
