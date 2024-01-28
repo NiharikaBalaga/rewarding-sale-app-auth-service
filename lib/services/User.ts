@@ -1,3 +1,4 @@
+import type { IUser } from '../DB/Models/User';
 import UserModel from '../DB/Models/User';
 
 class UserService {
@@ -12,6 +13,10 @@ class UserService {
       phoneNumber,
     });
     return newUser.save();
+  }
+
+  public static update(id: string, updateUserObject: Partial<IUser>) {
+    return UserModel.findByIdAndUpdate(id, updateUserObject, { new: true }).exec();
   }
 
 }

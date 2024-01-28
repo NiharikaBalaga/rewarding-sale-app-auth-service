@@ -5,6 +5,7 @@ import type { Response } from 'express';
 import { httpCodes } from '../constants/http-status-code';
 import OtpModel from '../DB/Models/Otp';
 import { UserService } from './User';
+import { TokenService } from './Token';
 
 class OtpService {
   private static async _OTPExists(phoneNumber: string) {
@@ -80,21 +81,25 @@ class OtpService {
 
       // check user existence in User collection
       // find user is signedUp or not and send the isSignedUp in response
-      const user = await UserService.getUserByPhone(phoneNumber);
+      let user = await UserService.getUserByPhone(phoneNumber);
       let isSignedUp = false;
       if (user && user.signedUp)
         isSignedUp = true;
       else if (!user)
-        await UserService.createUserByPhone(phoneNumber);
+        user = await UserService.createUserByPhone(phoneNumber);
 
 
-      // TODO Generate and send Auth tokens also refresh token
+      //  Generate Auth tokens also refresh token
+      const { accessToken, refreshToken } = await TokenService.getTokens(user._id, user.phoneNumber);
+
+      // update refresh token into user document
+      await TokenService.updateRefreshToken(user._id, refreshToken);
 
       return res.status(httpCodes.ok).send({
         message: 'OTP Verified successfully',
         isSignedUp: isSignedUp,
-        accessToken: '',
-        refreshToken: ''
+        accessToken,
+        refreshToken,
       });
 
     } catch (verifyOTPError) {

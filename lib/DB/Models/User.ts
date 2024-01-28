@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import type { Document, Model } from 'mongoose';
 
-interface IUser extends Document {
+export interface IUser extends Document {
   phoneNumber: string,
   email: string,
   firstName: string,
