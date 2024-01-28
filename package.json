@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "ts-node lib/app.ts",
-    "start:dev": "ts-node-dev lib/app.ts",
+    "start:prod": "cross-env NODE_ENV=production ts-node lib/app.ts",
+    "start:dev": "cross-env NODE_ENV=development ts-node-dev lib/app.ts",
     "lint": "eslint --ext .ts --ext .js --ext .jsx . --max-warnings 0",
     "lint:fix": "eslint --ext .ts --ext .js . --fix"
   },
@@ -17,6 +17,7 @@
     "@types/jsonwebtoken": "^9.0.5",
     "@types/passport": "^1.0.16",
     "argon2": "^0.31.2",
+    "cross-env": "^7.0.3",
     "dotenv": "^16.4.1",
     "express": "^4.18.2",
     "express-validator": "^7.0.1",

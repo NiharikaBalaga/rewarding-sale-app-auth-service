@@ -1,19 +1,38 @@
 import express, { json } from 'express';
 import { routes } from './routes';
-import * as process from 'process';
 import * as mongoose from 'mongoose';
 import * as  dotEnv from 'dotenv';
+import fs from 'fs';
 
-// TODO update into .env file later
+async function bootstrap() {
+  const env = process.env.NODE_ENV || 'development';
 
+  if (!fs.existsSync(`.env.${env}`)) {
+    const errorMessage = `Environment file (.env.${env}) not found. Please create the environment file and add necessary env variables`;
+    throw Object.assign(new Error(errorMessage), { code: 'ENV_ERROR' });
+  }
 
-(async () => {
   dotEnv.config({
-    path: '.env'
+    path: `.env.${env}`,
   });
 
-  const DB_ENDPOINT = 'mongodb://authService:authService@mongodb_auth_service:27017';
-  console.log('DB_ENDPOINT', DB_ENDPOINT);
+
+  const requiredEnvVariables = [
+    'MONGODB_URI_AUTH',
+    'MONGO_AUTH_DATABASE',
+    'JWT_ACCESS_SECRET',
+    'JWT_REFRESH_SECRET',
+  ];
+
+  const missingVariables = requiredEnvVariables.filter(variable => {
+    return !process.env[variable];
+  });
+
+  if (missingVariables.length > 0) {
+    const errorMessage = `Missing required environment variables: ${missingVariables.join(', ')}`;
+    throw Object.assign(new Error(errorMessage), { code: 'ENV_ERROR' });
+  }
+
   const PORT = process.env.PORT || 3000;
   const app = express();
   app.use(json());
@@ -21,8 +40,8 @@ import * as  dotEnv from 'dotenv';
 
 
   try {
-    await mongoose.connect(DB_ENDPOINT, {
-      dbName: 'authDB'
+    await mongoose.connect(process.env.MONGODB_URI_AUTH || '', {
+      dbName: process.env.MONGO_AUTH_DATABASE,
     });
 
     console.log('Connected to Mongodb successfully');
@@ -32,4 +51,10 @@ import * as  dotEnv from 'dotenv';
   } catch (err) {
     console.log('Error in starting the server', err);
   }
-})();
+}
+
+bootstrap().catch(error => {
+  if (error.code && error.code.startsWith('ENV'))
+    console.error(`Failed to start application: ${error}`);
+  process.exit(1);
+});

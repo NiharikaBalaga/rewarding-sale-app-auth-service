@@ -7,8 +7,8 @@ import { UserService } from './User';
 class TokenService {
 
   public static async getTokens(userId: string, phoneNumber: string) {
-    const jwtAccessSecretKey: Secret = process.env.JWT_ACCESS_TOKEN || '';
-    const jwtRefreshSecretKey: Secret = process.env.JWT_REFRESH_TOKEN || '';
+    const jwtAccessSecretKey: Secret = process.env.JWT_ACCESS_SECRET || '';
+    const jwtRefreshSecretKey: Secret = process.env.JWT_REFRESH_SECRET || '';
     const [accessToken, refreshToken] = await Promise.all([jwt.sign({
       sub: userId, phoneNumber
     }, jwtAccessSecretKey, {
