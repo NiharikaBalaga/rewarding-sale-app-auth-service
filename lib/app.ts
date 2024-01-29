@@ -21,6 +21,8 @@ async function bootstrap() {
     'MONGO_AUTH_DATABASE',
     'JWT_ACCESS_SECRET',
     'JWT_REFRESH_SECRET',
+    'aws_sns_access_key_id',
+    'aws_sns_access_key_id'
   ];
 
   const missingVariables = requiredEnvVariables.filter(variable => {

@@ -3,12 +3,12 @@ POST http://localhost:3000/api/auth/otp/generate
 content-type: application/json
 
 {
-  "phoneNumber": "437-556-4035"
+  "phoneNumber": "437-556-2948"
 }
 
 ### Logout an user
 GET http://localhost:3000/api/auth/user/logout
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWI2YmNkNzFjNzJkNzczZjVkYmFhNjUiLCJwaG9uZU51bWJlciI6IjQzNy01NTYtNDAzNSIsImlhdCI6MTcwNjQ5MDUwNiwiZXhwIjoxNzA5MDgyNTA2fQ.rMVx9Rh_blrnW-ikJ84wVe-9mrj7QR-aY9XaQJcIDfc
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWI3MTNiYjg2ZWMzMWM3MzhiODU4ZDEiLCJwaG9uZU51bWJlciI6IjQzNy01NTYtMjk0OCIsImlhdCI6MTcwNjQ5Njk1NSwiZXhwIjoxNzA5MDg4OTU1fQ.rucQArHxZ8rXNrvD4oh5hDD4vbmiCO2OOXGgAOZmkSc
 
 
 ### Verify Otp
@@ -16,6 +16,6 @@ POST http://localhost:3000/api/auth/otp/verify
 content-type: application/json
 
 {
-  "phoneNumber": "437-556-4035",
-  "otp":  702860
+  "phoneNumber": "437-556-2948",
+  "otp":  677698
 }
