@@ -6,6 +6,10 @@ content-type: application/json
   "phoneNumber": "437-556-4035"
 }
 
+### Logout an user
+GET http://localhost:3000/api/auth/user/logout
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWI2YmNkNzFjNzJkNzczZjVkYmFhNjUiLCJwaG9uZU51bWJlciI6IjQzNy01NTYtNDAzNSIsImlhdCI6MTcwNjQ5MDUwNiwiZXhwIjoxNzA5MDgyNTA2fQ.rMVx9Rh_blrnW-ikJ84wVe-9mrj7QR-aY9XaQJcIDfc
+
 
 ### Verify Otp
 POST http://localhost:3000/api/auth/otp/verify
@@ -13,5 +17,5 @@ content-type: application/json
 
 {
   "phoneNumber": "437-556-4035",
-  "otp":  840216
+  "otp":  702860
 }

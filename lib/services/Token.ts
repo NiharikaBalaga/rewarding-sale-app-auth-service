@@ -10,11 +10,11 @@ class TokenService {
     const jwtAccessSecretKey: Secret = process.env.JWT_ACCESS_SECRET || '';
     const jwtRefreshSecretKey: Secret = process.env.JWT_REFRESH_SECRET || '';
     const [accessToken, refreshToken] = await Promise.all([jwt.sign({
-      sub: userId, phoneNumber
+      userId, phoneNumber
     }, jwtAccessSecretKey, {
       expiresIn: '30d',
     }), jwt.sign({
-      sub: userId, phoneNumber
+      userId, phoneNumber
     }, jwtRefreshSecretKey, {
       expiresIn: '150d',
     })]);

@@ -1,21 +1,20 @@
+import * as  dotEnv from 'dotenv';
+const env = process.env.NODE_ENV || 'development';
+dotEnv.config({
+  path: `.env.${env}`,
+});
+
 import express, { json } from 'express';
 import { routes } from './routes';
 import * as mongoose from 'mongoose';
-import * as  dotEnv from 'dotenv';
 import fs from 'fs';
+import passport from './strategies/passport-strategy';
 
 async function bootstrap() {
-  const env = process.env.NODE_ENV || 'development';
-
   if (!fs.existsSync(`.env.${env}`)) {
     const errorMessage = `Environment file (.env.${env}) not found. Please create the environment file and add necessary env variables`;
     throw Object.assign(new Error(errorMessage), { code: 'ENV_ERROR' });
   }
-
-  dotEnv.config({
-    path: `.env.${env}`,
-  });
-
 
   const requiredEnvVariables = [
     'MONGODB_URI_AUTH',
@@ -35,6 +34,7 @@ async function bootstrap() {
 
   const PORT = process.env.PORT || 3000;
   const app = express();
+  app.use(passport.initialize());
   app.use(json());
   app.use(routes);
 

@@ -8,7 +8,7 @@ export interface IUser extends Document {
   lastName: string,
   signedUp: boolean,
   isBlocked: boolean,
-  refreshToken: string,
+  refreshToken: string | null,
 }
 
 const UserSchema: mongoose.Schema = new mongoose.Schema({
