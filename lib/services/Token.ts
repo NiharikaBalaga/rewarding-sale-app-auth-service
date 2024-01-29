@@ -24,7 +24,7 @@ class TokenService {
     };
   }
 
-  private static _hashData(data: string){
+  private static async _hashData(data: string){
     return argon2.hash(data);
   }
   public static async updateRefreshToken(userid: string, refreshToken: string){

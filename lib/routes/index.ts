@@ -1,4 +1,3 @@
-import type { Request, Response } from 'express';
 import express from 'express';
 import { validPhoneNumber, validateErrors, verifyOtp } from './RequestValidations';
 import { AuthServiceController } from '../controller';

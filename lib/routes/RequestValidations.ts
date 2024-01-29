@@ -20,8 +20,7 @@ const verifyOtp = () => {
       .trim()
       .notEmpty()
       .escape()
-      .isNumeric()
-      .isLength({ min: 6, max: 6 })
+      .isString()
       .withMessage('Must be a Valid OTP')];
 };
 
