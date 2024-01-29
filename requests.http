@@ -1,0 +1,21 @@
+### Generate Otp
+POST http://localhost:3000/api/auth/otp/generate
+content-type: application/json
+
+{
+  "phoneNumber": "437-556-2948"
+}
+
+### Logout an user
+GET http://localhost:3000/api/auth/user/logout
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWI3MTlhMTlhNjU3MWI5NjAxOGNhYTEiLCJwaG9uZU51bWJlciI6IjQzNy01NTYtMjk0OCIsImlhdCI6MTcwNjQ5ODQ2NSwiZXhwIjoxNzA5MDkwNDY1fQ.-6ADEsdHisK_Pm40NcLqbpTxvsGo6HRN76joKisy6sI
+
+
+### Verify Otp
+POST http://localhost:3000/api/auth/otp/verify
+content-type: application/json
+
+{
+  "phoneNumber": "437-556-2948",
+  "otp":  "355180"
+}

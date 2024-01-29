@@ -73,7 +73,7 @@ web_modules/
 .yarn-integrity
 
 # dotenv environment variable files
-.env
+.env.development
 .env.development.local
 .env.test.local
 .env.production.local
@@ -130,3 +130,7 @@ dist
 .pnp.*
 
 node_modules
+
+
+.idea
+*.env*
