@@ -3,7 +3,7 @@ POST http://localhost:3000/api/auth/otp/generate
 content-type: application/json
 
 {
-  "phoneNumber": "437-556-2948"
+  "phoneNumber": "437-477-1605"
 }
 
 ### Logout an user
@@ -16,8 +16,8 @@ POST http://localhost:3000/api/auth/otp/verify
 content-type: application/json
 
 {
-  "phoneNumber": "437-556-2948",
-  "otp":  "321030"
+  "phoneNumber": "437-477-1605",
+  "otp":  "699607"
 }
 
 ### Sign Up an user
@@ -26,7 +26,13 @@ content-type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWI5Yzk1OGU5MDI1OTZmMzFmZTkwZjgiLCJwaG9uZU51bWJlciI6IjQzNy01NTYtMjk0OCIsImlhdCI6MTcwNjY3NDUyMCwiZXhwIjoxNzA5MjY2NTIwfQ.R4VohsjU30hBB9VXdU1d3NDw0hTJ33-4431R6zVLS_M
 
 {
-  "firstName": "Jacobo",
+  "firstName": "Jacobooo",
   "lastName":  "Florez",
   "email":  "jflorez@gmail.com"
 }
+
+
+### Get Current User
+GET http://localhost:3000/api/auth
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWI5Yzk1OGU5MDI1OTZmMzFmZTkwZjgiLCJwaG9uZU51bWJlciI6IjQzNy01NTYtMjk0OCIsImlhdCI6MTcwNjY3NDUyMCwiZXhwIjoxNzA5MjY2NTIwfQ.R4VohsjU30hBB9VXdU1d3NDw0hTJ33-4431R6zVLS_M

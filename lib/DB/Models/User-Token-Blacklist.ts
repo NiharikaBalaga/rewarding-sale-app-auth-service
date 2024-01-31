@@ -15,6 +15,7 @@ const UserTokenBlacklistSchema: mongoose.Schema  = new mongoose.Schema({
 },{
   collection: 'UserTokenBlackList',
   timestamps: true,
+  id: true,
 });
 
 const UserTokenBlacklistModel: Model<IUserTokenBlacklist> = mongoose.model<IUserTokenBlacklist>('UserTokenBlacklist', UserTokenBlacklistSchema);

@@ -27,6 +27,7 @@ const OTPSchema: mongoose.Schema = new mongoose.Schema({
 }, {
   collection: 'Otp',
   timestamps: true,
+  id: true,
 });
 
 const OtpModel: Model<IOtp> = mongoose.model<IOtp>('Otp', OTPSchema);
