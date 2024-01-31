@@ -3,6 +3,7 @@ import { validPhoneNumber, validateErrors, verifyOtp } from './RequestValidation
 import { AuthServiceController } from '../controller';
 import passport from '../strategies/passport-strategy';
 import { isBlocked, tokenBlacklist } from '../middlewares';
+import { UserService } from 'lib/services/User';
 
 const router = express.Router();
 
@@ -26,6 +27,7 @@ function getRouter() {
 
   // TODO currentUser API  = GET API = access token should be valid, user is not blocked, token in not in blacklist , call userService to get user by ID and return user - Important -  Make sure not refresh token is not sent
   // currentUser GET API /api/auth/user
+  router.get('/api/auth/user', [passport.authenticate('jwt-access', { session: false }), isBlocked, tokenBlacklist, AuthServiceController.CurrentUser]);
 
 
   return router;

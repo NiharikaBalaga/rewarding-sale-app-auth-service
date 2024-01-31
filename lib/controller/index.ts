@@ -42,6 +42,11 @@ class AuthServiceController {
     const userInfo = req.body;
     return UserService.signUpUser(userId, userInfo, res);
   }
+
+  public static CurrentUser(req: RequestInterferedByIsBlocked, res: Response) {
+    const { userId } = req.user;
+    return UserService.getCurrentUserById(userId,res);
+  }
 }
 
 export {
