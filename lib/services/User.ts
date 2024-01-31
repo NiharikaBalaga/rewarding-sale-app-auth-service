@@ -3,7 +3,10 @@ import UserModel from '../DB/Models/User';
 import UserTokenBlacklistModel from '../DB/Models/User-Token-Blacklist';
 import type { Response } from 'express';
 import { httpCodes } from '../constants/http-status-code';
-import mongoose, { Schema } from 'mongoose';
+import type mongoose from 'mongoose';
+import { Schema } from 'mongoose';
+import {Serialize} from "../controller/serialise-response";
+import {UserDto} from "../controller/dtos/User.dto";
 
 class UserService {
   public static async getUserByPhone(phoneNumber: string){
@@ -21,7 +24,7 @@ class UserService {
 
   public static findById(id: string) {
     return UserModel.findById(id);
-    
+
   }
 
   public static update(id: string, updateUserObject: Partial<IUser>) {
@@ -56,47 +59,21 @@ class UserService {
   public static async signUpUser(userId: string, userObject: Partial<IUser>, res: Response) {
     try {
       // Updates user data and set signedUp to true
-      await this.update(userId, {
+      const updatedUser = await this.update(userId, {
         firstName: userObject.firstName,
         lastName: userObject.lastName,
         email: userObject.email,
         signedUp: true
       });
 
-      return res.send('Sign Up Success');
+      // send updated serialised user in response
+      return res.send(Serialize(UserDto, updatedUser));
     } catch (logoutError){
       console.error('signUp-UserService', logoutError);
       return  res.sendStatus(httpCodes.serverError);
     }
   }
 
-  static async getCurrentUserById(userId: string, res: Response) {
-    try {
-      // Find user by ID
-      const user = await UserModel.findById(userId);
-
-      // Check if the user exists
-      if (!user) {
-        return res.status(httpCodes.notFound).json({ message: 'User not found' });
-      }
-
-      // Return user information without sensitive data
-      const userWithoutSensitiveData = this.filterSensitiveUserData(user);
-      return res.json({ user: userWithoutSensitiveData });
-    } catch (error) {
-      console.error('getCurrentUserById - UserService', error);
-      return res.status(httpCodes.serverError).json({ message: 'Internal Server Error' });
-    }
-  }
-
-  static filterSensitiveUserData(user: mongoose.Document<unknown, {}, IUser> & IUser & { _id: mongoose.Types.ObjectId; }) {
-    if (!user) {
-      return null;
-    }
-  
-    const { refreshToken, ...userWithoutSensitiveData } = user.toObject();
-    return userWithoutSensitiveData;
-  }
 }
 
 export {

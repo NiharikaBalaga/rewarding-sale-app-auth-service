@@ -46,6 +46,7 @@ const UserSchema: mongoose.Schema = new mongoose.Schema({
 }, {
   collection: 'Users',
   timestamps: true,
+  id: true,
 });
 
 const UserModel: Model<IUser> = mongoose.model<IUser>('User', UserSchema);

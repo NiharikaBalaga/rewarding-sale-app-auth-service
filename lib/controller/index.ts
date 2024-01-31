@@ -2,7 +2,11 @@ import type { Request, Response } from 'express';
 import { OtpService } from '../services/Otp';
 import { UserService } from '../services/User';
 import type { IUser } from '../DB/Models/User';
+import User from '../DB/Models/User';
 import { httpCodes } from '../constants/http-status-code';
+import { plainToInstance } from 'class-transformer';
+import { UserDto } from './dtos/User.dto';
+import { Serialize } from './serialise-response';
 
 
 interface RequestValidatedByPassport extends Request {
@@ -44,8 +48,8 @@ class AuthServiceController {
   }
 
   public static CurrentUser(req: RequestInterferedByIsBlocked, res: Response) {
-    const { userId } = req.user;
-    return UserService.getCurrentUserById(userId,res);
+    // we already fetch user details in middleware, and it's available in req.currentUser - check isBlocked Middleware
+    return res.send(Serialize(UserDto, req.currentUser));
   }
 }
 
