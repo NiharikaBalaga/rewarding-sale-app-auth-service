@@ -17,22 +17,32 @@ content-type: application/json
 
 {
   "phoneNumber": "437-556-2948",
-  "otp":  "979706"
+  "otp":  "353747"
 }
 
 ### Sign Up an user
 POST http://localhost:3000/api/auth/user/signup
 content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWJhNzNmZmI0Zjc2MTI2NjUzMDAxOGMiLCJwaG9uZU51bWJlciI6IjQzNy01NTYtMjk0OCIsImlhdCI6MTcwNjcxODIwNywiZXhwIjoxNzA5MzEwMjA3fQ.GASlolDw7G76VM3OhxQqeoc6AZKSTme1HHcDw5OLzwA
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWJhYTg3ZGUyNzBiY2M1YWIyOTc2OTEiLCJwaG9uZU51bWJlciI6IjQzNy01NTYtMjk0OCIsImlhdCI6MTcwNjczMTY0NSwiZXhwIjoxNzA5MzIzNjQ1fQ.LVFSqOh7RKchxILcRX3B018cgQVZZdqtuzK_b5WKZ-o
 
 {
-  "firstName": "Jacobooo",
-  "lastName":  "Florez",
-  "email":  "jflorez@gmail.com"
+  "firstName": "Niha",
+  "lastName":  "Gel",
+  "email":  "sgelz@gmail.com"
 }
 
 
 ### Get Current User
-GET http://localhost:3000/api/auth
+GET http://localhost:3000/api/auth/user
 content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWJhNzNmZmI0Zjc2MTI2NjUzMDAxOGMiLCJwaG9uZU51bWJlciI6IjQzNy01NTYtMjk0OCIsImlhdCI6MTcwNjcxODIwNywiZXhwIjoxNzA5MzEwMjA3fQ.GASlolDw7G76VM3OhxQqeoc6AZKSTme1HHcDw5OLzwA
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWJhYTg3ZGUyNzBiY2M1YWIyOTc2OTEiLCJwaG9uZU51bWJlciI6IjQzNy01NTYtMjk0OCIsImlhdCI6MTcwNjczMTY0NSwiZXhwIjoxNzA5MzIzNjQ1fQ.LVFSqOh7RKchxILcRX3B018cgQVZZdqtuzK_b5WKZ-o
+
+### Update User
+PUT http://localhost:3000/api/auth/user
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWJhYTg3ZGUyNzBiY2M1YWIyOTc2OTEiLCJwaG9uZU51bWJlciI6IjQzNy01NTYtMjk0OCIsImlhdCI6MTcwNjczMTY0NSwiZXhwIjoxNzA5MzIzNjQ1fQ.LVFSqOh7RKchxILcRX3B018cgQVZZdqtuzK_b5WKZ-o
+
+{
+"firstName": "Niharika",
+  "email": "neha@gmail.com"
+}

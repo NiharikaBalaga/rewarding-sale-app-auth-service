@@ -72,6 +72,21 @@ class UserService {
     }
   }
 
+  public static async updateUser(userId: string, userObject: Partial<IUser>, res: Response) {
+    try {
+      // Updates user data
+      const updatedUser = await this.update(userId, {
+        ...userObject
+      });
+
+      // send updated serialised user in response
+      return res.send(Serialize(UserDto, updatedUser));
+    } catch (logoutError){
+      console.error('updateUser-UserService', logoutError);
+      return  res.sendStatus(httpCodes.serverError);
+    }
+  }
+
 }
 
 export {
