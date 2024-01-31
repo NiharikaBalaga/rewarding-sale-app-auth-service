@@ -44,7 +44,8 @@ const UserSchema: mongoose.Schema = new mongoose.Schema({
     type: String
   }
 }, {
-  collection: 'Users'
+  collection: 'Users',
+  timestamps: true,
 });
 
 const UserModel: Model<IUser> = mongoose.model<IUser>('User', UserSchema);

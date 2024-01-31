@@ -12,6 +12,8 @@ async function isBlocked(req: Request, res: Response, next: NextFunction) {
 
     if (!user || user.isBlocked) return res.sendStatus(401);
 
+    // @ts-ignore
+    req['currentUser'] = user;
     next();
   } catch (error) {
     console.error('Error in IsBlockedGuard:', error);

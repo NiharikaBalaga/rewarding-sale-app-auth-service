@@ -51,6 +51,23 @@ class UserService {
     }
   }
 
+  public static async signUpUser(userId: string, userObject: Partial<IUser>, res: Response) {
+    try {
+      // Updates user data and set signedUp to true
+      await this.update(userId, {
+        firstName: userObject.firstName,
+        lastName: userObject.lastName,
+        email: userObject.email,
+        signedUp: true
+      });
+
+      return res.send('Sign Up Success');
+    } catch (logoutError){
+      console.error('signUp-UserService', logoutError);
+      return  res.sendStatus(httpCodes.serverError);
+    }
+  }
+
 }
 
 export {
