@@ -46,6 +46,28 @@ const verifySignUp = () => {
       .withMessage('Last Name is required')];
 };
 
+const verifyUpdateUser = () => {
+  return [
+    body('email')
+      .trim()
+      .optional()
+      .escape()
+      .isEmail()
+      .withMessage('Email is not valid, please check.'),
+    body('firstName')
+      .trim()
+      .optional()
+      .escape()
+      .isString()
+      .withMessage('First name is not valid, please check.'),
+    body('lastName')
+      .trim()
+      .optional()
+      .escape()
+      .isString()
+      .withMessage('Last name is not valid, please check.')];
+};
+
 
 const validateErrors = (req: Request, res: Response, next: NextFunction) => {
   const errors = validationResult(req);
@@ -61,4 +83,4 @@ const validateErrors = (req: Request, res: Response, next: NextFunction) => {
   });
 };
 
-export { validPhoneNumber, validateErrors, verifyOtp, verifySignUp };
+export { validPhoneNumber, validateErrors, verifyOtp, verifySignUp, verifyUpdateUser };

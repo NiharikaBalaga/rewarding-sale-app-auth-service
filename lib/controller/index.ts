@@ -2,9 +2,7 @@ import type { Request, Response } from 'express';
 import { OtpService } from '../services/Otp';
 import { UserService } from '../services/User';
 import type { IUser } from '../DB/Models/User';
-import User from '../DB/Models/User';
 import { httpCodes } from '../constants/http-status-code';
-import { plainToInstance } from 'class-transformer';
 import { UserDto } from './dtos/User.dto';
 import { Serialize } from './serialise-response';
 
@@ -51,6 +49,17 @@ class AuthServiceController {
     // we already fetch user details in middleware, and it's available in req.currentUser - check isBlocked Middleware
     return res.send(Serialize(UserDto, req.currentUser));
   }
+
+  public static updateUser(req: RequestInterferedByIsBlocked, res: Response) {
+    const { id } = req.currentUser;
+    console.log('currentUser', req.currentUser);
+    console.log('id', id);
+    const userInfo = req.body;
+    console.log('req.body', req.body);
+    console.log('userInfo', userInfo);
+    return UserService.updateUser(id, userInfo, res);
+  }
+
 }
 
 export {
