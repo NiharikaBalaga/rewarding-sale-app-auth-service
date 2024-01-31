@@ -3,7 +3,7 @@ POST http://localhost:3000/api/auth/otp/generate
 content-type: application/json
 
 {
-  "phoneNumber": "226-883-1846"
+  "phoneNumber": "437-556-2948"
 }
 
 ### Logout an user
@@ -16,34 +16,33 @@ POST http://localhost:3000/api/auth/otp/verify
 content-type: application/json
 
 {
-  "phoneNumber": "226-883-1846",
-  "otp":  "455779"
+  "phoneNumber": "437-556-2948",
+  "otp":  "353747"
 }
 
 ### Sign Up an user
 POST http://localhost:3000/api/auth/user/signup
 content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWI5MDlkN2U0NGE3ZWI0NjRjMDY3NjEiLCJwaG9uZU51bWJlciI6IjIyNi04ODMtMTg0NiIsImlhdCI6MTcwNjcyNDQyMCwiZXhwIjoxNzA5MzE2NDIwfQ.E-73-dcpFINxVDhxA6GP5FqF3ycpM91desJVjmPRcXw
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWJhYTg3ZGUyNzBiY2M1YWIyOTc2OTEiLCJwaG9uZU51bWJlciI6IjQzNy01NTYtMjk0OCIsImlhdCI6MTcwNjczMTY0NSwiZXhwIjoxNzA5MzIzNjQ1fQ.LVFSqOh7RKchxILcRX3B018cgQVZZdqtuzK_b5WKZ-o
 
 {
-  "firstName": "Samuel",
-  "lastName":  "Gelvez",
-  "email":  "sgelvez@gmail.com"
+  "firstName": "Niha",
+  "lastName":  "Gel",
+  "email":  "sgelz@gmail.com"
 }
 
 
 ### Get Current User
-GET http://localhost:3000/api/auth
+GET http://localhost:3000/api/auth/user
 content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWI5MDlkN2U0NGE3ZWI0NjRjMDY3NjEiLCJwaG9uZU51bWJlciI6IjIyNi04ODMtMTg0NiIsImlhdCI6MTcwNjcyNDQyMCwiZXhwIjoxNzA5MzE2NDIwfQ.E-73-dcpFINxVDhxA6GP5FqF3ycpM91desJVjmPRcXw
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWJhYTg3ZGUyNzBiY2M1YWIyOTc2OTEiLCJwaG9uZU51bWJlciI6IjQzNy01NTYtMjk0OCIsImlhdCI6MTcwNjczMTY0NSwiZXhwIjoxNzA5MzIzNjQ1fQ.LVFSqOh7RKchxILcRX3B018cgQVZZdqtuzK_b5WKZ-o
 
 ### Update User
-PUT http://localhost:3000/api/auth/user/update
+PUT http://localhost:3000/api/auth/user
 content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWI5MDlkN2U0NGE3ZWI0NjRjMDY3NjEiLCJwaG9uZU51bWJlciI6IjIyNi04ODMtMTg0NiIsImlhdCI6MTcwNjcyNDQyMCwiZXhwIjoxNzA5MzE2NDIwfQ.E-73-dcpFINxVDhxA6GP5FqF3ycpM91desJVjmPRcXw
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWJhYTg3ZGUyNzBiY2M1YWIyOTc2OTEiLCJwaG9uZU51bWJlciI6IjQzNy01NTYtMjk0OCIsImlhdCI6MTcwNjczMTY0NSwiZXhwIjoxNzA5MzIzNjQ1fQ.LVFSqOh7RKchxILcRX3B018cgQVZZdqtuzK_b5WKZ-o
 
 {
-"firstName": "Nicolas",
-"lastName":  "Caceres",
-"email":  "ncaceres@gmail.com"
+"firstName": "Niharika",
+  "email": "neha@gmail.com"
 }

@@ -76,13 +76,9 @@ class UserService {
 
   public static async updateUser(userId: string, userObject: Partial<IUser>, res: Response) {
     try {
-
       // Updates user data
       const updatedUser = await this.update(userId, {
-        firstName: userObject.firstName,
-        lastName: userObject.lastName,
-        email: userObject.email,
-        signedUp: true
+        ...userObject
       });
 
       // send updated serialised user in response

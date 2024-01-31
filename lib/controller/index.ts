@@ -52,11 +52,7 @@ class AuthServiceController {
 
   public static updateUser(req: RequestInterferedByIsBlocked, res: Response) {
     const { id } = req.currentUser;
-    console.log('currentUser', req.currentUser);
-    console.log('id', id);
     const userInfo = req.body;
-    console.log('req.body', req.body);
-    console.log('userInfo', userInfo);
     return UserService.updateUser(id, userInfo, res);
   }
 
