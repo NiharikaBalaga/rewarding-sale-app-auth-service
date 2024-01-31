@@ -24,6 +24,28 @@ const verifyOtp = () => {
       .withMessage('Must be a Valid OTP')];
 };
 
+const verifySignUp = () => {
+  return [
+    body('email')
+      .trim()
+      .notEmpty()
+      .escape()
+      .isEmail()
+      .withMessage('Must be a valid email'),
+    body('firstName')
+      .trim()
+      .notEmpty()
+      .escape()
+      .isString()
+      .withMessage('First Name is required'),
+    body('lastName')
+      .trim()
+      .notEmpty()
+      .escape()
+      .isString()
+      .withMessage('Last Name is required')];
+};
+
 
 const validateErrors = (req: Request, res: Response, next: NextFunction) => {
   const errors = validationResult(req);
@@ -39,4 +61,4 @@ const validateErrors = (req: Request, res: Response, next: NextFunction) => {
   });
 };
 
-export { validPhoneNumber, validateErrors, verifyOtp };
+export { validPhoneNumber, validateErrors, verifyOtp, verifySignUp };

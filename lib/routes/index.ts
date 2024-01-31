@@ -1,5 +1,5 @@
 import express from 'express';
-import { validPhoneNumber, validateErrors, verifyOtp } from './RequestValidations';
+import { validPhoneNumber, validateErrors, verifyOtp, verifySignUp } from './RequestValidations';
 import { AuthServiceController } from '../controller';
 import passport from '../strategies/passport-strategy';
 import { isBlocked, tokenBlacklist } from '../middlewares';
@@ -22,7 +22,7 @@ function getRouter() {
 
   // TODO signup API POST - access token should be valid, user is not blocked, token in not in blacklist, user is not already signed-up - create a hook in user schema - to update signedUp to true when user signup is completed
   // signup api = /api/auth/user/signup
-  router.post('/api/auth/user/signup', [passport.authenticate('jwt-access', { session: false }), isBlocked, tokenBlacklist, AuthServiceController.signedUpUser]);
+  router.post('/api/auth/user/signup', [passport.authenticate('jwt-access', { session: false }), isBlocked, tokenBlacklist, verifySignUp(), validateErrors, AuthServiceController.signedUpUser]);
 
   // TODO currentUser API  = GET API = access token should be valid, user is not blocked, token in not in blacklist , call userService to get user by ID and return user - Important -  Make sure not refresh token is not sent
   // currentUser GET API /api/auth/user
