@@ -30,9 +30,9 @@ class AuthServiceController {
   }
 
   public static signedUpUser(req: RequestValidatedByPassport, res: Response) {
-    const { userId, accessToken } = req.user;
+    const { userId } = req.user;
     const userInfo = req.body;
-    return UserService.checkSignUpUser(userId, userInfo, accessToken, res);
+    return UserService.checkSignUpUser(userId, userInfo, res);
   }
 }
 

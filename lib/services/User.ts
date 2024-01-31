@@ -51,22 +51,20 @@ class UserService {
     }
   }
 
-  public static async checkSignUpUser(userId: string, userObject: Partial<IUser>, accessToken: string, res: Response) {
+  public static async checkSignUpUser(userId: string, userObject: Partial<IUser>, res: Response) {
     try {
       // Find User by Id
       const user = await this.findById(userId);
-
       // Validates if the user attempting to sign up exists in the db
       if (!user)
-        return res.status(httpCodes.notFound).send('User does not exists, please check.'); // TODO format error message
+        return res.status(httpCodes.notFound).send('User does not exists, please check.');
 
-      // Validates
+      // Validates if the user is already signed up
       if (user.signedUp)
-        return res.status(httpCodes.unprocessable_entity).send('User already exists, please log in.'); // TODO format error message
-
+        return res.status(httpCodes.unprocessable_entity).send('User already exists, please log in.');
       // Updates user data and set signedUp to true
       if (!user.signedUp){
-        await this.update(userObject.id, {
+        await this.update(userId, {
           firstName: userObject.firstName,
           lastName: userObject.lastName,
           phoneNumber: userObject.phoneNumber,
