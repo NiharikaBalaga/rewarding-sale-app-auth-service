@@ -1,6 +1,8 @@
 import type { Request, Response } from 'express';
 import { OtpService } from '../services/Otp';
 import { UserService } from '../services/User';
+import type { IUser } from '../DB/Models/User';
+import { httpCodes } from '../constants/http-status-code';
 
 
 interface RequestValidatedByPassport extends Request {
@@ -13,6 +15,10 @@ interface RequestValidatedByPassport extends Request {
     refreshToken: string
   }
 }
+
+interface RequestInterferedByIsBlocked extends RequestValidatedByPassport {
+  currentUser: IUser
+}
 class AuthServiceController {
   public static generateOtp(req: Request, res: Response) {
     const { matchedData: { phoneNumber } } = req.body;
@@ -24,15 +30,17 @@ class AuthServiceController {
     return OtpService.verifyOTP(phoneNumber, otp, res);
   }
 
-  public static logoutUser(req: RequestValidatedByPassport, res: Response) {
+  public static logoutUser(req: RequestInterferedByIsBlocked, res: Response) {
     const { userId, accessToken } = req.user;
     return UserService.logout(userId, accessToken, res);
   }
 
-  public static signedUpUser(req: RequestValidatedByPassport, res: Response) {
+  public static signedUpUser(req: RequestInterferedByIsBlocked, res: Response) {
+    const { signedUp } = req.currentUser;
+    if (signedUp) return res.status(httpCodes.conflict).send('User already exists, please log in.');
     const { userId } = req.user;
     const userInfo = req.body;
-    return UserService.checkSignUpUser(userId, userInfo, res);
+    return UserService.signUpUser(userId, userInfo, res);
   }
 }
 

@@ -25,7 +25,8 @@ const OTPSchema: mongoose.Schema = new mongoose.Schema({
     expires: 30, // TODO update into required expiry time
   }
 }, {
-  collection: 'Otp'
+  collection: 'Otp',
+  timestamps: true,
 });
 
 const OtpModel: Model<IOtp> = mongoose.model<IOtp>('Otp', OTPSchema);

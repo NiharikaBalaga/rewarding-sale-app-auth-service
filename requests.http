@@ -3,7 +3,7 @@ POST http://localhost:3000/api/auth/otp/generate
 content-type: application/json
 
 {
-  "phoneNumber": "226-883-1846"
+  "phoneNumber": "437-556-2948"
 }
 
 ### Logout an user
@@ -16,18 +16,17 @@ POST http://localhost:3000/api/auth/otp/verify
 content-type: application/json
 
 {
-  "phoneNumber": "226-883-1846",
-  "otp":  "718747"
+  "phoneNumber": "437-556-2948",
+  "otp":  "321030"
 }
 
 ### Sign Up an user
 POST http://localhost:3000/api/auth/user/signup
 content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWI5MDlkN2U0NGE3ZWI0NjRjMDY3NjEiLCJwaG9uZU51bWJlciI6IjIyNi04ODMtMTg0NiIsImlhdCI6MTcwNjY2Nzc4OCwiZXhwIjoxNzA5MjU5Nzg4fQ.rBUL1-7-WsbDitCk7WXPxL2KgG9DcvQBr5yOu9UlXTo
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWI5Yzk1OGU5MDI1OTZmMzFmZTkwZjgiLCJwaG9uZU51bWJlciI6IjQzNy01NTYtMjk0OCIsImlhdCI6MTcwNjY3NDUyMCwiZXhwIjoxNzA5MjY2NTIwfQ.R4VohsjU30hBB9VXdU1d3NDw0hTJ33-4431R6zVLS_M
 
 {
   "firstName": "Jacobo",
   "lastName":  "Florez",
-  "phoneNumber":  "226-883-1846",
   "email":  "jflorez@gmail.com"
 }

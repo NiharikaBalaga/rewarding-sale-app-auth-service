@@ -7,6 +7,7 @@ const httpCodes =  {
   notFound: 404,
   badGateway: 502,
   unprocessable_entity: 422,
+  conflict: 409,
 };
 
 export {  httpCodes };
