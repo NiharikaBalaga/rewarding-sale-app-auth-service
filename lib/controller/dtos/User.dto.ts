@@ -14,8 +14,6 @@ export class UserDto {
   @Expose()
     lastName: string;
 
-  @Expose()
-    faceIdVerified: boolean;
 
   @Expose()
     isBlocked: boolean;
