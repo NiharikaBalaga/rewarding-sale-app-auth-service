@@ -51,6 +51,37 @@ class UserService {
     }
   }
 
+  public static async checkSignUpUser(userId: string, userObject: Partial<IUser>, accessToken: string, res: Response) {
+    try {
+      // Find User by Id
+      const user = await this.findById(userId);
+
+      // Validates if the user attempting to sign up exists in the db
+      if (!user)
+        return res.status(httpCodes.notFound).send('User does not exists, please check.'); // TODO format error message
+
+      // Validates
+      if (user.signedUp)
+        return res.status(httpCodes.unprocessable_entity).send('User already exists, please log in.'); // TODO format error message
+
+      // Updates user data and set signedUp to true
+      if (!user.signedUp){
+        await this.update(userObject.id, {
+          firstName: userObject.firstName,
+          lastName: userObject.lastName,
+          phoneNumber: userObject.phoneNumber,
+          email: userObject.email,
+          signedUp: true
+        });
+      }
+
+      return res.send('Sign Up Success');
+    } catch (logoutError){
+      console.error('signUp-UserService', logoutError);
+      return  res.sendStatus(httpCodes.serverError);
+    }
+  }
+
 }
 
 export {

@@ -3,12 +3,12 @@ POST http://localhost:3000/api/auth/otp/generate
 content-type: application/json
 
 {
-  "phoneNumber": "437-556-2948"
+  "phoneNumber": "226-883-1846"
 }
 
 ### Logout an user
 GET http://localhost:3000/api/auth/user/logout
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWI3MTlhMTlhNjU3MWI5NjAxOGNhYTEiLCJwaG9uZU51bWJlciI6IjQzNy01NTYtMjk0OCIsImlhdCI6MTcwNjQ5ODQ2NSwiZXhwIjoxNzA5MDkwNDY1fQ.-6ADEsdHisK_Pm40NcLqbpTxvsGo6HRN76joKisy6sI
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWI5MDlkN2U0NGE3ZWI0NjRjMDY3NjEiLCJwaG9uZU51bWJlciI6IjIyNi04ODMtMTg0NiIsImlhdCI6MTcwNjYyNTQ5NSwiZXhwIjoxNzA5MjE3NDk1fQ.QuzK7H3edN5oTjeKjhUu-l284aHhhsD3_QgcM8IpAR0
 
 
 ### Verify Otp
@@ -16,6 +16,18 @@ POST http://localhost:3000/api/auth/otp/verify
 content-type: application/json
 
 {
-  "phoneNumber": "437-556-2948",
-  "otp":  "355180"
+  "phoneNumber": "226-883-1846",
+  "otp":  "718747"
+}
+
+### Sign Up an user
+POST http://localhost:3000/api/auth/user/signup
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWI5MDlkN2U0NGE3ZWI0NjRjMDY3NjEiLCJwaG9uZU51bWJlciI6IjIyNi04ODMtMTg0NiIsImlhdCI6MTcwNjY2Nzc4OCwiZXhwIjoxNzA5MjU5Nzg4fQ.rBUL1-7-WsbDitCk7WXPxL2KgG9DcvQBr5yOu9UlXTo
+
+{
+  "firstName": "Jacobo",
+  "lastName":  "Florez",
+  "phoneNumber":  "226-883-1846",
+  "email":  "jflorez@gmail.com"
 }

@@ -28,6 +28,12 @@ class AuthServiceController {
     const { userId, accessToken } = req.user;
     return UserService.logout(userId, accessToken, res);
   }
+
+  public static signedUpUser(req: RequestValidatedByPassport, res: Response) {
+    const { userId, accessToken } = req.user;
+    const userInfo = req.body;
+    return UserService.checkSignUpUser(userId, userInfo, accessToken, res);
+  }
 }
 
 export {
