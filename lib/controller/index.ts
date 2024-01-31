@@ -38,11 +38,10 @@ class AuthServiceController {
   }
 
   public static signedUpUser(req: RequestInterferedByIsBlocked, res: Response) {
-    const { signedUp } = req.currentUser;
+    const { signedUp, id } = req.currentUser;
     if (signedUp) return res.status(httpCodes.conflict).send('User already exists, please log in.');
-    const { userId } = req.user;
     const userInfo = req.body;
-    return UserService.signUpUser(userId, userInfo, res);
+    return UserService.signUpUser(id, userInfo, res);
   }
 
   public static CurrentUser(req: RequestInterferedByIsBlocked, res: Response) {

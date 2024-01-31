@@ -3,10 +3,8 @@ import UserModel from '../DB/Models/User';
 import UserTokenBlacklistModel from '../DB/Models/User-Token-Blacklist';
 import type { Response } from 'express';
 import { httpCodes } from '../constants/http-status-code';
-import type mongoose from 'mongoose';
-import { Schema } from 'mongoose';
-import {Serialize} from "../controller/serialise-response";
-import {UserDto} from "../controller/dtos/User.dto";
+import { Serialize } from '../controller/serialise-response';
+import { UserDto } from '../controller/dtos/User.dto';
 
 class UserService {
   public static async getUserByPhone(phoneNumber: string){
