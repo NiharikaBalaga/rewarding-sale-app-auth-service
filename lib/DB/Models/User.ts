@@ -1,6 +1,15 @@
 import mongoose from 'mongoose';
 import type { Document, Model } from 'mongoose';
 
+
+export enum GeoJSONType {
+  Point = 'Point',
+}
+
+export interface Location {
+  type: GeoJSONType,
+  coordinates: [number, number] // [Longitude, Latitude]
+}
 export interface IUser extends Document {
   phoneNumber: string,
   email: string,
@@ -9,6 +18,7 @@ export interface IUser extends Document {
   signedUp: boolean,
   isBlocked: boolean,
   refreshToken: string | null,
+  lastLocation: Location,
 }
 
 const UserSchema: mongoose.Schema = new mongoose.Schema({
@@ -42,6 +52,18 @@ const UserSchema: mongoose.Schema = new mongoose.Schema({
 
   refreshToken: {
     type: String
+  },
+
+  lastLocation: {
+    type: {
+      type: String,
+      enum: GeoJSONType,
+      default: GeoJSONType.Point
+    },
+    coordinates: {
+      type: [Number, Number], // [Longitude, Latitude]
+      default: [0, 0] // Default coordinates
+    }
   }
 }, {
   collection: 'Users',
@@ -49,6 +71,7 @@ const UserSchema: mongoose.Schema = new mongoose.Schema({
   id: true,
 });
 
+UserSchema.index({ lastLocation: '2dsphere' });
 const UserModel: Model<IUser> = mongoose.model<IUser>('User', UserSchema);
 
 export default UserModel;

@@ -17,13 +17,13 @@ content-type: application/json
 
 {
   "phoneNumber": "437-556-2948",
-  "otp":  "511578"
+  "otp":  "065779"
 }
 
 ### Sign Up an user
 POST http://localhost:3000/api/auth/user/signup
 content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWJhYTg3ZGUyNzBiY2M1YWIyOTc2OTEiLCJwaG9uZU51bWJlciI6IjQzNy01NTYtMjk0OCIsImlhdCI6MTcwNjczMTY0NSwiZXhwIjoxNzA5MzIzNjQ1fQ.LVFSqOh7RKchxILcRX3B018cgQVZZdqtuzK_b5WKZ-o
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWJhZWQ3MmEwOTk0YmMwYzViMzcyODMiLCJwaG9uZU51bWJlciI6IjQzNy01NTYtMjk0OCIsImlhdCI6MTcwNjc1MTQwNiwiZXhwIjoxNzA5MzQzNDA2fQ.zNR4-jGfFc8tva3DKX6aGxflGle3omOQf5knK7jTxwg
 
 {
   "firstName": "Niha",
@@ -34,7 +34,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWJhY
 
 ### Get Current User
 GET http://localhost:3000/api/auth/user
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWJhYTg3ZGUyNzBiY2M1YWIyOTc2OTEiLCJwaG9uZU51bWJlciI6IjQzNy01NTYtMjk0OCIsImlhdCI6MTcwNjczMTY0NSwiZXhwIjoxNzA5MzIzNjQ1fQ.LVFSqOh7RKchxILcRX3B018cgQVZZdqtuzK_b5WKZ-o
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWJhZWQ3MmEwOTk0YmMwYzViMzcyODMiLCJwaG9uZU51bWJlciI6IjQzNy01NTYtMjk0OCIsImlhdCI6MTcwNjc0OTI5OCwiZXhwIjoxNzA5MzQxMjk4fQ.UWKsOydE45EfhCaAiUt0-YadGGu1AhIQHGj2JRQFwJ4
 
 ### Update User
 PUT http://localhost:3000/api/auth/user
@@ -49,3 +49,14 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWJhY
 ### Refresh Token
 GET http://localhost:3000/api/auth/token/refresh
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWJhYTg3ZGUyNzBiY2M1YWIyOTc2OTEiLCJwaG9uZU51bWJlciI6IjQzNy01NTYtMjk0OCIsImlhdCI6MTcwNjc0NzgxOSwiZXhwIjoxNzE5NzA3ODE5fQ.7Z69Z2EybpZQ3ih-lsqeVe86EuJPQwrDF1KgFOBdTiY
+
+
+### Update User Location
+PATCH http://localhost:3000/api/auth/user/location
+content-type: application/json
+Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWJhZWQ3MmEwOTk0YmMwYzViMzcyODMiLCJwaG9uZU51bWJlciI6IjQzNy01NTYtMjk0OCIsImlhdCI6MTcwNjc1MTYxNiwiZXhwIjoxNzA5MzQzNjE2fQ.5WyTfike8_uTifHAYizCK4SNh3NWE7litSt3kaKYUfE
+
+{
+  "longitude": -80.5579867,
+  "latitude": 43.4347027
+}

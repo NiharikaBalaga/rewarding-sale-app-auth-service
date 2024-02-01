@@ -1,5 +1,5 @@
-import type { IUser } from '../DB/Models/User';
-import UserModel from '../DB/Models/User';
+import type { IUser, Location } from '../DB/Models/User';
+import UserModel, { GeoJSONType } from '../DB/Models/User';
 import UserTokenBlacklistModel from '../DB/Models/User-Token-Blacklist';
 import type { Response } from 'express';
 import { httpCodes } from '../constants/http-status-code';
@@ -85,6 +85,16 @@ class UserService {
       console.error('updateUser-UserService', logoutError);
       return  res.sendStatus(httpCodes.serverError);
     }
+  }
+
+  static async updateUserLocation(userid: string, location: any){
+    const lastLocationDto: Location = {
+      type: GeoJSONType.Point,
+      coordinates: [location.longitude, location.latitude]
+    };
+    return this.update(userid, {
+      lastLocation: lastLocationDto
+    });
   }
 
 }

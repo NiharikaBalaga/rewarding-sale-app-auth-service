@@ -1,5 +1,12 @@
 import express from 'express';
-import { validPhoneNumber, validateErrors, verifyOtp, verifySignUp, verifyUpdateUser } from './RequestValidations';
+import {
+  validPhoneNumber,
+  validateErrors,
+  verifyOtp,
+  verifySignUp,
+  verifyUpdateUser,
+  verifyUpdateLocation
+} from './RequestValidations';
 import { AuthServiceController } from '../controller';
 import passport from '../strategies/passport-strategy';
 import { isBlocked, tokenBlacklist } from '../middlewares';
@@ -29,6 +36,8 @@ function getRouter() {
   router.put('/api/auth/user', [passport.authenticate('jwt-access', { session: false }), isBlocked, tokenBlacklist, verifyUpdateUser(), validateErrors, AuthServiceController.updateUser]);
 
   router.get('/api/auth/token/refresh', [passport.authenticate('jwt-refresh', { session: false }), isBlocked, AuthServiceController.refreshTokens]);
+
+  router.patch('/api/auth/user/location', [passport.authenticate('jwt-access', { session: false }), isBlocked, tokenBlacklist, verifyUpdateLocation(), validateErrors, AuthServiceController.updateLocation]);
   return router;
 }
 
