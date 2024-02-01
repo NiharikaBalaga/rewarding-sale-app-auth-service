@@ -1,10 +1,12 @@
 import type { IUser, Location } from '../DB/Models/User';
+import user from '../DB/Models/User';
 import UserModel, { GeoJSONType } from '../DB/Models/User';
 import UserTokenBlacklistModel from '../DB/Models/User-Token-Blacklist';
 import type { Response } from 'express';
 import { httpCodes } from '../constants/http-status-code';
 import { Serialize } from '../controller/serialise-response';
 import { UserDto } from '../controller/dtos/User.dto';
+import { Aws } from './Aws';
 
 class UserService {
   public static async getUserByPhone(phoneNumber: string){
@@ -13,11 +15,19 @@ class UserService {
     });
     return user;
   }
-  public static createUserByPhone(phoneNumber: string){
+  public static async createUserByPhone(phoneNumber: string){
     const newUser = new UserModel({
       phoneNumber,
     });
-    return newUser.save();
+    await newUser.save();
+
+    // new user is created by phoneNumber
+
+
+    // no need of await since we don't need to wait for events to publish
+    // SNS Event
+    Aws.userCreatedByPhoneEvent(newUser);
+    return newUser;
   }
 
   public static findById(id: string) {
@@ -47,6 +57,9 @@ class UserService {
 
       await blackListToken.save();
 
+      // SNS event
+      Aws.tokenBlackListEvent(accessToken);
+
       return res.send('Logout Success');
     } catch (logoutError){
       console.error('logout-UserService', logoutError);
@@ -64,6 +77,10 @@ class UserService {
         signedUp: true
       });
 
+      // SNS event
+      if (updatedUser)
+        Aws.userUpdatedEvent(updatedUser);
+
       // send updated serialised user in response
       return res.send(Serialize(UserDto, updatedUser));
     } catch (logoutError){
@@ -79,6 +96,10 @@ class UserService {
         ...userObject
       });
 
+      // SNS event
+      if (updatedUser)
+        Aws.userUpdatedEvent(updatedUser);
+
       // send updated serialised user in response
       return res.send(Serialize(UserDto, updatedUser));
     } catch (logoutError){
@@ -92,9 +113,14 @@ class UserService {
       type: GeoJSONType.Point,
       coordinates: [location.longitude, location.latitude]
     };
-    return this.update(userid, {
+    const updatedUser = await this.update(userid, {
       lastLocation: lastLocationDto
     });
+
+    // SNS event
+    if (updatedUser)
+      Aws.userUpdatedEvent(updatedUser);
+    return updatedUser;
   }
 
 }

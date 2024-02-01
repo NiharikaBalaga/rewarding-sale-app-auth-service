@@ -57,6 +57,6 @@ content-type: application/json
 Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWJhZWQ3MmEwOTk0YmMwYzViMzcyODMiLCJwaG9uZU51bWJlciI6IjQzNy01NTYtMjk0OCIsImlhdCI6MTcwNjc1MTYxNiwiZXhwIjoxNzA5MzQzNjE2fQ.5WyTfike8_uTifHAYizCK4SNh3NWE7litSt3kaKYUfE
 
 {
-  "longitude": -80.5579867,
+  "longitude": -80.5579868,
   "latitude": 43.4347027
 }

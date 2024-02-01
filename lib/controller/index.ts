@@ -38,7 +38,7 @@ class AuthServiceController {
     return UserService.logout(userId, accessToken, res);
   }
 
-  public static signedUpUser(req: RequestInterferedByIsBlocked, res: Response) {
+  public static signUpUser(req: RequestInterferedByIsBlocked, res: Response) {
     const { signedUp, id } = req.currentUser;
     if (signedUp) return res.status(httpCodes.conflict).send('User already exists, please log in.');
     const { matchedData  } = req.body;

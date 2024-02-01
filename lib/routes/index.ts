@@ -28,7 +28,7 @@ function getRouter() {
   router.get('/api/auth/user/logout', [passport.authenticate('jwt-access', { session: false }), isBlocked, tokenBlacklist, AuthServiceController.logoutUser]);
 
   // signup api = /api/auth/user/signup
-  router.post('/api/auth/user/signup', [passport.authenticate('jwt-access', { session: false }), isBlocked, tokenBlacklist, verifySignUp(), validateErrors, AuthServiceController.signedUpUser]);
+  router.post('/api/auth/user/signup', [passport.authenticate('jwt-access', { session: false }), isBlocked, tokenBlacklist, verifySignUp(), validateErrors, AuthServiceController.signUpUser]);
 
   // currentUser GET API /api/auth/user
   router.get('/api/auth/user', [passport.authenticate('jwt-access', { session: false }), isBlocked, tokenBlacklist, AuthServiceController.CurrentUser]);
