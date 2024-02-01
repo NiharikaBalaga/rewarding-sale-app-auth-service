@@ -20,16 +20,15 @@ function getRouter() {
 
   router.get('/api/auth/user/logout', [passport.authenticate('jwt-access', { session: false }), isBlocked, tokenBlacklist, AuthServiceController.logoutUser]);
 
-  // TODO signup API POST - access token should be valid, user is not blocked, token in not in blacklist, user is not already signed-up - create a hook in user schema - to update signedUp to true when user signup is completed
   // signup api = /api/auth/user/signup
   router.post('/api/auth/user/signup', [passport.authenticate('jwt-access', { session: false }), isBlocked, tokenBlacklist, verifySignUp(), validateErrors, AuthServiceController.signedUpUser]);
 
-  // TODO currentUser API  = GET API = access token should be valid, user is not blocked, token in not in blacklist , call userService to get user by ID and return user - Important -  Make sure not refresh token is not sent
   // currentUser GET API /api/auth/user
   router.get('/api/auth/user', [passport.authenticate('jwt-access', { session: false }), isBlocked, tokenBlacklist, AuthServiceController.CurrentUser]);
   // Update user
   router.put('/api/auth/user', [passport.authenticate('jwt-access', { session: false }), isBlocked, tokenBlacklist, verifyUpdateUser(), validateErrors, AuthServiceController.updateUser]);
 
+  router.get('/api/auth/token/refresh', [passport.authenticate('jwt-refresh', { session: false }), isBlocked, AuthServiceController.refreshTokens]);
   return router;
 }
 

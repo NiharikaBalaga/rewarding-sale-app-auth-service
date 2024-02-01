@@ -5,6 +5,7 @@ import type { IUser } from '../DB/Models/User';
 import { httpCodes } from '../constants/http-status-code';
 import { UserDto } from './dtos/User.dto';
 import { Serialize } from './serialise-response';
+import { TokenService } from '../services/Token';
 
 
 interface RequestValidatedByPassport extends Request {
@@ -53,6 +54,11 @@ class AuthServiceController {
     const { id } = req.currentUser;
     const userInfo = req.body;
     return UserService.updateUser(id, userInfo, res);
+  }
+
+  public static refreshTokens(req: RequestInterferedByIsBlocked, res: Response){
+    const { refreshToken } = req.user;
+    return TokenService.refreshTokens(req.currentUser, refreshToken, res);
   }
 
 }

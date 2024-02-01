@@ -93,7 +93,7 @@ class OtpService {
       const { accessToken, refreshToken } = await TokenService.getTokens(user._id, user.phoneNumber);
 
       // update refresh token into user document
-      await TokenService.updateRefreshToken(user._id, refreshToken);
+      await TokenService.updateRefreshToken(user.id, refreshToken);
 
       return res.status(httpCodes.ok).send({
         message: 'OTP Verified successfully',
