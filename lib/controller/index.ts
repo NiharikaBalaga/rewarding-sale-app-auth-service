@@ -38,11 +38,11 @@ class AuthServiceController {
     return UserService.logout(userId, accessToken, res);
   }
 
-  public static signedUpUser(req: RequestInterferedByIsBlocked, res: Response) {
+  public static signUpUser(req: RequestInterferedByIsBlocked, res: Response) {
     const { signedUp, id } = req.currentUser;
     if (signedUp) return res.status(httpCodes.conflict).send('User already exists, please log in.');
-    const userInfo = req.body;
-    return UserService.signUpUser(id, userInfo, res);
+    const { matchedData  } = req.body;
+    return UserService.signUpUser(id, matchedData, res);
   }
 
   public static CurrentUser(req: RequestInterferedByIsBlocked, res: Response) {
@@ -52,14 +52,24 @@ class AuthServiceController {
 
   public static updateUser(req: RequestInterferedByIsBlocked, res: Response) {
     const { id } = req.currentUser;
-    const userInfo = req.body;
-    return UserService.updateUser(id, userInfo, res);
+    const { matchedData  } = req.body;
+    return UserService.updateUser(id, matchedData, res);
   }
 
   public static refreshTokens(req: RequestInterferedByIsBlocked, res: Response){
     const { refreshToken } = req.user;
     return TokenService.refreshTokens(req.currentUser, refreshToken, res);
   }
+  public static updateLocation(req: RequestInterferedByIsBlocked, res: Response){
+    const { id } = req.currentUser;
+    const { matchedData  } = req.body;
+
+    // No need to wait till location gets updated, this happens in async
+    UserService.updateUserLocation(id, matchedData);
+
+    return res.send('Success');
+  }
+
 
 }
 

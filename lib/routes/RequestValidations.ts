@@ -68,6 +68,22 @@ const verifyUpdateUser = () => {
       .withMessage('Last name is not valid, please check.')];
 };
 
+const verifyUpdateLocation = () => {
+  return [
+    body('longitude')
+      .trim()
+      .escape()
+      .isFloat({ min: -180, max: 180 })
+      .withMessage('Longitude must be a valid number between -180 and 180'),
+    body('latitude')
+      .trim()
+      .escape()
+      .isFloat({ min: -90, max: 90 })
+      .withMessage('Latitude must be a valid number between -90 and 90')
+  ];
+};
+
+
 
 const validateErrors = (req: Request, res: Response, next: NextFunction) => {
   const errors = validationResult(req);
@@ -83,4 +99,4 @@ const validateErrors = (req: Request, res: Response, next: NextFunction) => {
   });
 };
 
-export { validPhoneNumber, validateErrors, verifyOtp, verifySignUp, verifyUpdateUser };
+export { validPhoneNumber, validateErrors, verifyOtp, verifySignUp, verifyUpdateUser, verifyUpdateLocation };
