@@ -63,9 +63,9 @@ class Aws{
     return this._publishToAuthTopicARN(JSON.stringify(snsMessage));
   }
 
-  static async userUpdatedEvent(user: IUser) {
+  static async userUpdatedEvent(updatedUser: IUser) {
     const EVENT_TYPE = Events.userUpdate;
-    const snsMessage = Object.assign({ user }, { EVENT_TYPE, userId: user.id });
+    const snsMessage = Object.assign({ updatedUser }, { EVENT_TYPE, userId: updatedUser.id });
     return this._publishToAuthTopicARN(JSON.stringify(snsMessage));
   }
   static async tokenBlackListEvent(token: string) {

@@ -3,7 +3,7 @@ POST http://localhost:3000/api/auth/otp/generate
 content-type: application/json
 
 {
-  "phoneNumber": "437-556-2948"
+  "phoneNumber": "437-556-4035"
 }
 
 ### Logout an user
@@ -16,19 +16,19 @@ POST http://localhost:3000/api/auth/otp/verify
 content-type: application/json
 
 {
-  "phoneNumber": "437-556-2948",
-  "otp":  "065779"
+  "phoneNumber": "437-556-4035",
+  "otp":  "784825"
 }
 
 ### Sign Up an user
 POST http://localhost:3000/api/auth/user/signup
 content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWJhZWQ3MmEwOTk0YmMwYzViMzcyODMiLCJwaG9uZU51bWJlciI6IjQzNy01NTYtMjk0OCIsImlhdCI6MTcwNjc1MTQwNiwiZXhwIjoxNzA5MzQzNDA2fQ.zNR4-jGfFc8tva3DKX6aGxflGle3omOQf5knK7jTxwg
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWJlNWViNTM3NjIyNTdhNDBkZDFmZjQiLCJwaG9uZU51bWJlciI6IjQzNy01NTYtNDAzNSIsImlhdCI6MTcwNjk3NDkwMSwiZXhwIjoxNzA5NTY2OTAxfQ.tV7AZO58MaeDprv7fMZWbe7lXoPUf2it3Qco1bNRQnc
 
 {
-  "firstName": "Niha",
+  "firstName": "vijay",
   "lastName":  "Gel",
-  "email":  "sgelz@gmail.com"
+  "email":  "svijayr007@gmail.com"
 }
 
 
@@ -54,7 +54,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWJhY
 ### Update User Location
 PATCH http://localhost:3000/api/auth/user/location
 content-type: application/json
-Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWJhZWQ3MmEwOTk0YmMwYzViMzcyODMiLCJwaG9uZU51bWJlciI6IjQzNy01NTYtMjk0OCIsImlhdCI6MTcwNjc1MTYxNiwiZXhwIjoxNzA5MzQzNjE2fQ.5WyTfike8_uTifHAYizCK4SNh3NWE7litSt3kaKYUfE
+Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWJlNWViNTM3NjIyNTdhNDBkZDFmZjQiLCJwaG9uZU51bWJlciI6IjQzNy01NTYtNDAzNSIsImlhdCI6MTcwNjk3NDkwMSwiZXhwIjoxNzA5NTY2OTAxfQ.tV7AZO58MaeDprv7fMZWbe7lXoPUf2it3Qco1bNRQnc
 
 {
   "longitude": -80.5579868,
