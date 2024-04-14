@@ -1,5 +1,4 @@
 import type { IUser, Location } from '../DB/Models/User';
-import user from '../DB/Models/User';
 import UserModel, { GeoJSONType } from '../DB/Models/User';
 import UserTokenBlacklistModel from '../DB/Models/User-Token-Blacklist';
 import type { Response } from 'express';
@@ -121,6 +120,25 @@ class UserService {
     if (updatedUser)
       Aws.userUpdatedEvent(updatedUser);
     return updatedUser;
+  }
+
+  public static async updateUserAdminSNS(user: Partial<IUser>, userId: string) {
+    try {
+      // Updates user data
+      const updatedUser = await this.update(userId, {
+        ...user
+      });
+
+      // SNS event
+      if (updatedUser)
+        Aws.userUpdatedEvent(updatedUser);
+
+      // send updated serialised user in response
+      return updatedUser;
+    } catch (logoutError){
+      console.error('updateUser-UserService', logoutError);
+      throw logoutError;
+    }
   }
 
 }
