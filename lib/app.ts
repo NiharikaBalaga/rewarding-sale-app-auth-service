@@ -9,6 +9,7 @@ import { routes } from './routes';
 import * as mongoose from 'mongoose';
 import fs from 'fs';
 import passport from './strategies/passport-strategy';
+import { SQSService } from './services/SQS';
 
 async function bootstrap() {
   if (!fs.existsSync(`.env.${env}`)) {
@@ -21,10 +22,14 @@ async function bootstrap() {
     'MONGO_AUTH_DATABASE',
     'JWT_ACCESS_SECRET',
     'JWT_REFRESH_SECRET',
+    'aws_sqs_access_key_id',
+    'aws_sqs_secret_access_key',
     'aws_sns_access_key_id',
-    'aws_sns_access_key_id',
+    'aws_sns_secret_access_key',
+    'AUTH_TOPIC_SNS_ARN',
     'aws_region',
-    'AUTH_TOPIC_SNS_ARN'
+    'aws_sqs_queue_name',
+    'aws_sqs_queue_url'
   ];
 
   const missingVariables = requiredEnvVariables.filter(variable => {
@@ -52,6 +57,8 @@ async function bootstrap() {
     app.listen(PORT, async () => {
       console.log(`Server Started and Listening on PORT ${PORT} `);
     });
+    // Start SQS Polling
+    SQSService.initPoling();
   } catch (err) {
     console.log('Error in starting the server', err);
   }
