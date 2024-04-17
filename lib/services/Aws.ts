@@ -1,8 +1,10 @@
 import { SNSClient, PublishCommand } from '@aws-sdk/client-sns';
 import type { IUser } from '../DB/Models/User';
 import { Events } from './events.enum';
+import type { Twilio } from 'twilio';
+import twilio from 'twilio';
 
-class Aws{
+class Aws {
   private static readonly SNS: SNSClient = new SNSClient({
     apiVersion: 'version',
     region: process.env.aws_region,
@@ -11,25 +13,49 @@ class Aws{
       secretAccessKey: process.env.aws_sns_secret_access_key || '',
     },
   });
-  public static async sendOtpToPhone(phoneNumber: string, OTP: string){
+
+  private static readonly twilio: Twilio = twilio(
+    process.env.TWILIO_SID,
+    process.env.TWILIO_SECRET,
+    {
+      autoRetry: true,
+      maxRetries: 3,
+      region: 'US1',
+      edge: 'ashburn',
+      accountSid: process.env.TWILIO_ACCOUNT_SID,
+    },
+  );
+
+  public static async sendOtpToPhone(phoneNumber: string, OTP: string) {
     const MESSAGE = `Your verification code is ${OTP}, expires in 5 Minutes - Sale Spotter App`;
-    const smsParams = {
-      Message: MESSAGE,
-      PhoneNumber: `+1${phoneNumber}`,
-      MessageAttributes: {
-        'AWS.SNS.SMS.SenderID': {
-          DataType: 'String',
-          StringValue: 'SaleSpotter',
-        },
-        'AWS.SNS.SMS.SMSType': {
-          DataType: 'String',
-          StringValue: 'Transactional',
-        },
-      },
-    };
+    // const smsParams = {
+    //   Message: MESSAGE,
+    //   PhoneNumber: `+1${phoneNumber}`,
+    //   MessageAttributes: {
+    //     'AWS.SNS.SMS.SenderID': {
+    //       DataType: 'String',
+    //       StringValue: 'SaleSpotter',
+    //     },
+    //     'AWS.SNS.SMS.SMSType': {
+    //       DataType: 'String',
+    //       StringValue: 'Transactional',
+    //     },
+    //   },
+    // };
     try {
-      const { MessageId } =  await this.SNS.send(new PublishCommand(smsParams));
-      console.log('Otp Sent Successfully Message-ID', MessageId);
+
+      const response = await this.twilio.messages.create({
+        body: MESSAGE,
+        from: process.env.TWILIO_NUMBER,
+        to: `+1${phoneNumber}`
+      });
+      console.log(
+        'Otp Sent Successfully Message ID - ',
+        response.sid,
+        response.status,
+      );
+      // const { MessageId } =  await this.SNS.send(new PublishCommand(smsParams));
+      // console.log('Otp Sent Successfully Message-ID', MessageId);
     } catch (sendOtpToPhoneError) {
       console.error('sendOtpToPhoneError', sendOtpToPhoneError);
       throw new Error('sendOtpToPhoneError');
@@ -68,6 +94,7 @@ class Aws{
     const snsMessage = Object.assign({ updatedUser }, { EVENT_TYPE, userId: updatedUser.id });
     return this._publishToAuthTopicARN(JSON.stringify(snsMessage));
   }
+
   static async tokenBlackListEvent(token: string) {
     const EVENT_TYPE = Events.tokenBlackList;
     return this._publishToAuthTopicARN(JSON.stringify({ token, EVENT_TYPE }));

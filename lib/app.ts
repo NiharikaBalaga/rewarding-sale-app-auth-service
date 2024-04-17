@@ -29,7 +29,11 @@ async function bootstrap() {
     'AUTH_TOPIC_SNS_ARN',
     'aws_region',
     'aws_sqs_queue_name',
-    'aws_sqs_queue_url'
+    'aws_sqs_queue_url',
+    'TWILIO_ACCOUNT_SID',
+    'TWILIO_SID',
+    'TWILIO_SECRET',
+    'TWILIO_NUMBER'
   ];
 
   const missingVariables = requiredEnvVariables.filter(variable => {
