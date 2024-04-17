@@ -3,7 +3,7 @@ POST http://localhost:3000/api/auth/otp/generate
 content-type: application/json
 
 {
-  "phoneNumber": "437-556-4035"
+  "phoneNumber": "437-556-9000"
 }
 
 ### Logout an user
@@ -16,19 +16,19 @@ POST http://localhost:3000/api/auth/otp/verify
 content-type: application/json
 
 {
-  "phoneNumber": "437-556-4035",
-  "otp":  "784825"
+  "phoneNumber": "437-556-9000",
+  "otp":  "074615"
 }
 
 ### Sign Up an user
 POST http://localhost:3000/api/auth/user/signup
 content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWJlNWViNTM3NjIyNTdhNDBkZDFmZjQiLCJwaG9uZU51bWJlciI6IjQzNy01NTYtNDAzNSIsImlhdCI6MTcwNjk3NDkwMSwiZXhwIjoxNzA5NTY2OTAxfQ.tV7AZO58MaeDprv7fMZWbe7lXoPUf2it3Qco1bNRQnc
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjFjMmY1MGExN2RkOGU1MzIyNDlkOGIiLCJwaG9uZU51bWJlciI6IjQzNy01NTYtOTAwMCIsImlhdCI6MTcxMzEyMzE1MiwiZXhwIjoxNzE1NzE1MTUyfQ.0aG4koK-9-YYQFBfcLb4vpIfjnTgvXnkXGC73Txq2Hw
 
 {
-  "firstName": "vijay",
-  "lastName":  "Gel",
-  "email":  "svijayr007@gmail.com"
+  "firstName": "hero",
+  "lastName":  "sherri",
+  "email":  "svijayr0072@gmail.com"
 }
 
 
@@ -54,9 +54,9 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWJhY
 ### Update User Location
 PATCH http://localhost:3000/api/auth/user/location
 content-type: application/json
-Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWJlNWViNTM3NjIyNTdhNDBkZDFmZjQiLCJwaG9uZU51bWJlciI6IjQzNy01NTYtNDAzNSIsImlhdCI6MTcwNjk3NDkwMSwiZXhwIjoxNzA5NTY2OTAxfQ.tV7AZO58MaeDprv7fMZWbe7lXoPUf2it3Qco1bNRQnc
+Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjBkYWJiZDljYmE3MDAzMjk1NDJhMjMiLCJwaG9uZU51bWJlciI6IjQzNy01NTYtNDAzNSIsImlhdCI6MTcxMjE3MTk2NSwiZXhwIjoxNzE0NzYzOTY1fQ._by1Zj-xIdomc6grXkOvzGCwClf6kwoBoIZMhK4shLU
 
 {
-  "longitude": -80.5579868,
-  "latitude": 43.4347027
+  "longitude": -80.579707,
+  "latitude": 43.445412
 }
